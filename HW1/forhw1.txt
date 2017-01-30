@@ -1,0 +1,3 @@
+For problem 3: 
+	a. Program is compiled and works 
+	b. The command is ./prob3 "Game of Thrones \$eason 1 Episode 4.mp4" *\\\\\\\\*

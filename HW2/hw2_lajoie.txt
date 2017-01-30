@@ -1,0 +1,30 @@
+// Author: Nicholas LaJoie
+// ECE 331 - Homework 2
+// Date: 1/30/17
+
+1. Package commands: 
+	a. 
+	b. 
+	c. 
+	d.
+
+2. avrdude commands: 
+	a. 
+	b. 
+	c.
+	d.
+	e.
+	f.
+	g.
+	h.
+
+3. Link command: 
+
+4. Total BLOCK program: 
+
+5. Glob BLOCK program: 
+
+6. debugfs: 
+	a. 
+	b.
+	c.
