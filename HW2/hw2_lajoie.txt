@@ -23,6 +23,8 @@
 4. Total BLOCK program: 
 
 5. Glob BLOCK program: 
+    a. ./prob5 '/usr/local/images/*.jpg'
+    b. Source code: 
 
 6. debugfs: 
 	a. 
