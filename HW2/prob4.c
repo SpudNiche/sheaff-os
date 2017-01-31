@@ -22,17 +22,21 @@ int main(int argc, char * argv[])
 	}
     // Call each command line argument with 'stat' and parse data for # of blocks 
 	for (i = 1; i < argc; i++) {
-        //snprintf(command, sizeof(command), "stat %s", argv[i]); 
 		//printf("%s\n", command);
-        stat(argv[i], &s); 
-        printf("Stat blocksize: %lld\n", (long long) s.st_blocks); 
-        //status = system(command); 
-		//if (status == -1) {
-		//	perror("System call failure.\n");
-		//	return -2;
-		//}
-
+        if (stat(argv[i], &s) == -1) {
+            perror("Stat error"); 
+        }
+        else {
+            blocksum += (int) s.st_blocks; 
+        }
+        snprintf(command, sizeof(command), "stat %s", argv[i]); 
+        status = system(command); 
+		if (status == -1) {
+			perror("System call failure.\n");
+			return -2;
+		}
 	}	
-	
+    printf("%d\n", blocksum); 	
+
 	return 0; 
 }
