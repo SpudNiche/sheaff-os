@@ -2,6 +2,7 @@
 // File: prob4.c
 // Date: 1/25/17
 // Description: Print total number of BLOCKS used by list of files passed on command line. 
+// Sources: https://linux.die.net/man/2/stat
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,8 +13,7 @@
 
 int main(int argc, char * argv[])
 {
-	int i, status, blocksum; 
-	char command[1000];
+	int i, blocksum; 
     struct stat s; 
 
 	if (argc < 2) {
@@ -22,19 +22,12 @@ int main(int argc, char * argv[])
 	}
     // Call each command line argument with 'stat' and parse data for # of blocks 
 	for (i = 1; i < argc; i++) {
-		//printf("%s\n", command);
         if (stat(argv[i], &s) == -1) {
             perror("Stat error"); 
         }
         else {
             blocksum += (int) s.st_blocks; 
         }
-        snprintf(command, sizeof(command), "stat %s", argv[i]); 
-        status = system(command); 
-		if (status == -1) {
-			perror("System call failure.\n");
-			return -2;
-		}
 	}	
     printf("%d\n", blocksum); 	
 
