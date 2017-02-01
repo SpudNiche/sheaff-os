@@ -4,12 +4,12 @@
 
 1. Package commands: 
 	a. aptitude search weather-util 
-	b.   
-	c. 
-	d.
+	b. sudo apt-get install weather-util	  
+	c. dpkg -L weather-util
+	d. sudo apt-get remove weather-util
 
 2. avrdude commands: 
-	a. 
+	a. sudo apt-get install avrdude 	
 	b. 
 	c.
 	d.
@@ -26,7 +26,11 @@
     a. ./prob5 '/usr/local/images/*.jpg'
     b. Source code: 
 
-6. debugfs: 
-	a. 
-	b.
-	c.
+6. debugfs:
+	Run debugfs using the command:
+	sudo debugfs /dev/<partition> 
+	(ex. sudo debugs /dev/mmcblk0p7) 
+ 
+	a. show_super_stats
+	b. stat /bin/ls
+	c. ncheck 11  
