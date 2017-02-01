@@ -3,8 +3,8 @@
 // Date: 1/30/17
 
 1. Package commands: 
-	a. 
-	b. 
+	a. aptitude search weather-util 
+	b.   
 	c. 
 	d.
 
@@ -18,7 +18,7 @@
 	g.
 	h.
 
-3. Link command: 
+3. Link command: ln -s /sys/var/adm/armv7/hf skywalker 
 
 4. Total BLOCK program: 
 
