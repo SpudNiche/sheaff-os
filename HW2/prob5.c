@@ -21,7 +21,7 @@ int main(int argc, char * argv[])
     // Only one command line argument is passed - a single glob. 
 	if (argc != 2) {
 		perror("Incorrect number of arguments passed.\n"); 
-		return -1; 
+		return 1; 
 	}
     // Call single glob, call each result with 'stat' for # of blocks 
     if (glob(argv[1], GLOB_DOOFFS, NULL, &g) != 0) {

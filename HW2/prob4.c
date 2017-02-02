@@ -13,12 +13,12 @@
 
 int main(int argc, char * argv[])
 {
-	int i, blocksum; 
+	int i, blocksum = 0; 
     struct stat s; 
 
 	if (argc < 2) {
 		perror("No arguments passed.\n"); 
-		return -1; 
+		return 1; 
 	}
     // Call each command line argument with 'stat' and parse data for # of blocks 
 	for (i = 1; i < argc; i++) {
