@@ -11,17 +11,17 @@
 2. avrdude commands: 
 	a. sudo apt-get source avrdude 	
 	b. wget http://savannah.nongnu.org/bugs/download.php?file_id=32171
-       sudo mv download.php\?file_id=32171 /usr/share/avrdude-6.1/endpoint.patch
+       	   sudo mv download.php\?file_id=32171 /usr/share/avrdude-6.1/endpoint.patch
 	c. sudo patch -i endpoint.patch 
 	d. sudo apt-get build-dep avrdude
 	e. sudo dpkg-source --commit 
 	f. sudo dpkg-buildpackage -us -uc
 	g. sudo dpkg -i avrdude 
-	h. I don't think I ended up doing this process correctly...here's what I added in the commit for part e: 
-       Description: Applying endpoing patch for avrdude
-        This is where I'm supposed to provide more info as to what this patch is doing, but unfortunately, I'm not entirely sure. 
-
-        <More text here from the commit - stuff about the patch source, date, etc.> 
+	h. I don't think I ended up doing this process correctly...here's what I added in 
+	the commit for part e: 
+       		Description: Applying endpoing patch for avrdude
+        	This is where I'm supposed to provide more info as to what this patch is 		doing, but unfortunately, I'm not entirely sure. 
+        	<More text here from the commit - stuff about the patch source, date, etc.> 
 
 3. Link command: ln -s /sys/var/adm/armv7/hf skywalker 
 
@@ -43,22 +43,22 @@
 int main(int argc, char * argv[])
 {
 	int i, blocksum = 0; 
-    struct stat s; 
+   	struct stat s; 
 
 	if (argc < 2) {
 		perror("No arguments passed.\n"); 
 		return 1; 
 	}
-    // Call each command line argument with 'stat' and parse data for # of blocks 
+    	// Call each command line argument with 'stat' and parse data for # of blocks 
 	for (i = 1; i < argc; i++) {
-        if (stat(argv[i], &s) == -1) {
-            perror("Stat error"); 
-        }
-        else {
-            blocksum += (int) s.st_blocks; 
-        }
+        	if (stat(argv[i], &s) == -1) {
+           		perror("Stat error"); 
+        	}
+        	else {
+			blocksum += (int) s.st_blocks; 
+	}
 	}	
-    printf("%d\n", blocksum); 	
+    	printf("%d\n", blocksum); 	
 
 	return 0; 
 }
@@ -84,29 +84,29 @@ int main(int argc, char * argv[])
 int main(int argc, char * argv[])
 {
 	int i, blocksum = 0; 
-    struct stat s; 
-    glob_t g; 
+    	struct stat s; 
+    	glob_t g; 
 
-    // Only one command line argument is passed - a single glob. 
+    	// Only one command line argument is passed - a single glob. 
 	if (argc != 2) {
 		perror("Incorrect number of arguments passed.\n"); 
 		return 1; 
 	}
-    // Call single glob, call each result with 'stat' for # of blocks 
-    if (glob(argv[1], GLOB_DOOFFS, NULL, &g) != 0) {
-        perror("Glob error");
-    }
-    else {
-    	for (i = 0; i < g.gl_pathc; i++) {
-            if (stat(g.gl_pathv[i], &s) == -1) {
-                perror("Stat error"); 
-            }   
-            else {
-                blocksum += (int) s.st_blocks; 
-            }
-	    }
-    }
-    printf("%d\n", blocksum); 	
+    	// Call single glob, call each result with 'stat' for # of blocks 
+    	if (glob(argv[1], GLOB_DOOFFS, NULL, &g) != 0) {
+        	perror("Glob error");
+    	}
+    	else {
+    		for (i = 0; i < g.gl_pathc; i++) {
+            		if (stat(g.gl_pathv[i], &s) == -1) {
+               	 		perror("Stat error"); 
+            		}   
+            		else {
+              			blocksum += (int) s.st_blocks; 
+            		}	
+	    	}
+    	}
+    	printf("%d\n", blocksum); 	
 
 	return 0; 
 }
