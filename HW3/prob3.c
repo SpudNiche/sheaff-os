@@ -18,7 +18,7 @@
 int main(int argc, char * argv[])
 {
     char *buffer; 
-    char *express = "Something"; 
+    char *express; 
     size_t bufsize = 32; 
     size_t len; 
     
@@ -26,11 +26,17 @@ int main(int argc, char * argv[])
     int regflag; 
     char errbuf[100];
 
+    // Command Line Argument 
+    if (argc > 2) {
+	perror("Too many arguments.\n");
+	return 1;
+    }
+    
     // Allocate buffer memory 
     buffer = (char *) malloc(bufsize * sizeof(char));
     if (buffer == NULL) {
         perror("Error allocating buffer memory.\n");
-        return 1; 
+        return 2; 
     }
         
     // Regular Expression from problem 2
@@ -39,7 +45,7 @@ int main(int argc, char * argv[])
     printf("Enter text: ");
     if (getline(&buffer, &bufsize, stdin) == -1) {
         perror("Failed to read input.\n");
-        return 2;
+        return 3;
     }
     else {
         len = strlen(buffer);
@@ -52,7 +58,7 @@ int main(int argc, char * argv[])
         regflag = regcomp(&reg, express, 0); 
         if (regflag) {
             perror("Error compiling regex\n");
-            return 3;
+            return 4;
         }
         regflag = regexec(&reg, buffer,0, NULL, 0);
         if (!regflag) {
