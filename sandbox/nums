@@ -1,0 +1,9 @@
+#!/usr/bin/perl
+print "$_\n" foreach (0 .. $ARGV[0]);
+print $r;
+$s[47566]="Nolan";
+$c[0][0]="a";
+$c[0][1]="b";
+$c[1][0]="c";
+$c[1][1]="d";
+print @c[0];

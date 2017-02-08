@@ -8,6 +8,7 @@
 //          Removal of newline char: stackoverflow.com/questions/2693776/removing-trailing-newline-character
 //          -from-fgets-input
 //          Use of regex: stackoverflow.com/questions/1085083/regular-expressions-in-c-examples
+//          Reading from stdin: stackoverflow.com/questions/22340845/c-piping-file-from-command-line-to-c-program-with-the-use-of-strtok
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,65 +16,60 @@
 #include <sys/types.h>
 #include <regex.h>
 
+void rm_newline(char* str); 
+
 int main(int argc, char * argv[])
 {
-    char *buffer; 
-    char *express; 
-    size_t bufsize = 32; 
-    size_t len; 
+    char *line; 
+    size_t len = 0; 
     
     regex_t reg;
     int regflag; 
     char errbuf[100];
 
-    // Command Line Argument 
-    if (argc > 2) {
-	perror("Too many arguments.\n");
-	return 1;
+    // Validate proper command line argument
+    if (argc != 2) {
+        perror("Invalid arguments.\n");
+	    return 1;
     }
-    
-    // Allocate buffer memory 
-    buffer = (char *) malloc(bufsize * sizeof(char));
-    if (buffer == NULL) {
-        perror("Error allocating buffer memory.\n");
-        return 2; 
+    // Load Regular Expression 
+    regflag = regcomp(&reg, argv[1], 0); 
+    if (regflag) {
+        perror("Error compiling regex\n");
+        return 2;
     }
-        
-    // Regular Expression from problem 2
-    
+    // Allocate input line memory 
+    line = (char *) malloc(len * sizeof(char));
+    if (line == NULL) {
+        perror("Error allocating line memory.\n");
+        return 3; 
+    }
     // Read user input using stdin
-    printf("Enter text: ");
-    if (getline(&buffer, &bufsize, stdin) == -1) {
-        perror("Failed to read input.\n");
-        return 3;
-    }
-    else {
-        len = strlen(buffer);
-        // Remove additional newline character
-        if (len > 0 && buffer[len - 1] == '\n') {
-            buffer[--len] = '\0'; 
-        }
-        printf("This is what you entered: %s\n", buffer);
-        // Process input using regex 
-        regflag = regcomp(&reg, express, 0); 
-        if (regflag) {
-            perror("Error compiling regex\n");
-            return 4;
-        }
-        regflag = regexec(&reg, buffer,0, NULL, 0);
+    while (getline(&line, &len, stdin) != -1) {
+        // Remove newline character at the end of the line
+        rm_newline(line); 
+        // Process line using regex
+        regflag = regexec(&reg, line, 0, NULL, 0);
         if (!regflag) {
-            // There's a match!
-        }
-        else if (regflag == REG_NOMATCH) {
-            // No match :/ 
-        }
-        else {
+            printf("%s\n", line); 
+        } else if (regflag == REG_NOMATCH) {
+            continue;  
+        } else {
             regerror(regflag, &reg, errbuf, sizeof(errbuf));
             printf("Regex error: %s\n", errbuf);
             return 4;
         }
     }
-    free(buffer); 
+    free(line);
 
     return 0;
+}
+
+void rm_newline(char* str)
+{ 
+    int len = strlen(str); 
+
+    if (len > 0 && str[len - 1] == '\n') {
+        str[--len] = '\0'; 
+    }
 }

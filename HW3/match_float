@@ -1,0 +1,5 @@
+#!/usr/bin/perl
+while (<STDIN>) {
+    next if (/^[-+]?([0-9]*\.)?[0-9]+$/);
+    print; 
+}

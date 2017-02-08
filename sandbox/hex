@@ -1,0 +1,33 @@
+#!/usr/bin/perl
+use POSIX
+
+# Usage
+print "Usade: dparse in_file out_file_name\n", if ($#ARGV!=1);
+
+# Output file 
+open(OUT, ">$ARGV[1]") or die "Cannot open output file $ARGV[1]\n";
+
+open(IN, "$ARGV[0]") or die "Cannot open $ARGV[0]\n";
+
+# Save date from FLASH 
+$j=0;
+while (<IN>) {
+    next if (/^$/);
+    print RAW $_;
+    print;
+    $d[$j++]=$_;
+    last if  (/^7FFFE0 : /); # This is the end of the data 
+}
+close(IN);
+
+$i=0;
+$,=', ';
+foreach (@d) {
+    chomp;
+    next if (/^$/);
+    @x=split(' '); # Split returns a list (splits on whitespace) 
+    $addr=hex($x[0]);
+    if (($addr&0x000001FF)==0) {
+        $l[$i]=~s/F+$//;
+        $i++;
+    }
