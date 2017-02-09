@@ -3,34 +3,69 @@
 // Description: File provides various input to test problem 3 source code
 //              Code should print lines that contain a C-style floating point number
 
+A bunch of floating point style numbers that should match:
 123.123
+1e0
+1e1
+-1e1
+-1.e0
+-2.3e7
+-3.2e-9
+-1.
+-.1
++1.
++.1
+3e-0
+123456789.123456789
+1.0000000000000000
+0.1000000000000000
+0e123
+123e0
+1E3
+-2E3
+-4E-5
+6.E-6
+
+Numbers that shouldn't match:
+1
+100000
+000001
+0
+18
+e3
+E3
+-E3
+-e3
++E3
++e3
++1
+-1
+
+Random text that might match:
 Hi Sheaff!
 This isn't a floating point number: 01
 But this is: 0.1
-1.00000000000000
-0.11111111111111
-123456789
-123456789.
-0
+1e4
+.0
+0.
+-0.
++0.
++0e0
 0.0
 1.00
 0123
 1.23456
 12345.6789
 Another sentence to make sure it works. 
-This sentences has a floating point in it: --> 3.14 <-- Wow! 
+This sentence has a floating point in it: --> 3.14 <-- Wow! 
 Alright, almost done tests. 
--1.234
--1000
 -0
 0-
 1.149-
 +83.5
-
 +0
+0+
 When will this end??
-
 Line number: 42
-
 The final number: +3.14159
 Pi time! 
