@@ -4,7 +4,8 @@
 
 1. Linux Kernel preparation commands: 
     a. sudo apt-get update
-    b.
+    b. cd /usr/src/
+       sudo git clone https://github.com/raspberrypi/linux.git 
     c.
     d.
     e.

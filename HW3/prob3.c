@@ -33,7 +33,8 @@ int main(int argc, char * argv[])
 	    return 1;
     }
     // Load Regular Expression 
-    regflag = regcomp(&reg, argv[1], 0); 
+    printf("Regex: %s\n", argv[1]);
+    regflag = regcomp(&reg, argv[1], REG_EXTENDED); 
     if (regflag) {
         perror("Error compiling regex\n");
         return 2;
