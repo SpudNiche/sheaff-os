@@ -1,0 +1,9 @@
+#!/usr/bin/perl
+@out=`/bin/ls -al`;
+foreach (@out) {
+    @x=split(' ');
+    $f{$x[8]}=\@x; # Reference
+}
+foreach $k (keys(%f)) {
+    print "$k ${$f{$k}}[0]\n"; # Access reference, printing permissions, column 1 
+}

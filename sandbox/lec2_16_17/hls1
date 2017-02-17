@@ -1,0 +1,9 @@
+#!/usr/bin/perl
+@out=`/bin/ls -al`;
+foreach (@out) {
+    @x=split(' ');
+    $f{$x[8]}=$x[4];
+}
+foreach $k (keys(%f)) {
+    print "$k $f{$k}\n"; # Print the key followed by the value
+}
