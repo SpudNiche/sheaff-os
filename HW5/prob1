@@ -1,0 +1,12 @@
+#!/usr/bin/perl
+# Author: Nicholas LaJoie
+# ECE 331 - Homework 5, Problem 1
+# Date: February 19, 2017
+# Description: Script takes standard input and prints a line if the regex is matched
+# Regex is searching for valid c-style floating point numbers 
+
+my $complete_match = qr/((\d*\.\d+)|(\d+\.)([eE][-+]?\d+)?[flFL]?)|(\d+[eE][-+]?\d+[flFL]?)/;
+
+while (<STDIN>) {
+    print if (/$complete_match/);
+}

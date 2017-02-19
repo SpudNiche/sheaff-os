@@ -1,0 +1,233 @@
+// Author: Nicholas LaJoie
+// ECE 331 - Homework 5, Problem 1
+// Date: February 19, 2017
+// Description: File for testing regex that matches a c-style floating point constant 
+// y -> indicates line SHOULD match, n -> indicates line SHOULDN'T match
+
+-------------------------
+// digit-sequence . digit-sequence exp float-suffix
+
+y 0.0e0
+y 0.0e-0
+y 0.0e+0
+y 0.0e0f
+y 0.0e0l
+y 0.0e0F
+y 0.0e0L
+y 0.0e-0f
+y 0.0e-0l
+y 0.0e-0F
+y 0.0e-0L
+y 0.0e+0f
+y 0.0e+0l
+y 0.0e+0F
+y 0.0e+0L
+
+y 0.0E0
+y 0.0E-0
+y 0.0E+0
+y 0.0E0f
+y 0.0E0l
+y 0.0E0F
+y 0.0E0L
+y 0.0E-0f
+y 0.0E-0l
+y 0.0E-0F
+y 0.0E-0L
+y 0.0E+0f
+y 0.0E+0l
+y 0.0E+0F
+y 0.0E+0L
+
+y 0.0f
+y 0.0l
+y 0.0F
+y 0.0L
+
+--------------------------
+// . digit-sequence exp float-suffix
+
+y .0e0
+y .0e-0
+y .0e+0
+y .0e0f
+y .0e0l
+y .0e0F
+y .0e0L
+y .0e-0f
+y .0e-0l
+y .0e-0F
+y .0e-0L
+y .0e+0f
+y .0e+0l
+y .0e+0F
+y .0e+0L
+
+y .0E0
+y .0E-0
+y .0E+0
+y .0E0f
+y .0E0l
+y .0E0F
+y .0E0L
+y .0E-0f
+y .0E-0l
+y .0E-0F
+y .0E-0L
+y .0E+0f
+y .0E+0l
+y .0E+0F
+y .0E+0L
+
+y .0f
+y .0l
+y .0F
+y .0L
+
+---------------------------
+// digit-sequence . exp float-suffix
+
+y 0.e0
+y 0.e-0
+y 0.e+0
+y 0.e0f
+y 0.e0l
+y 0.e0F
+y 0.e0L
+y 0.e-0f
+y 0.e-0l
+y 0.e-0F
+y 0.e-0L
+y 0.e+0f
+y 0.e+0l
+y 0.e+0F
+y 0.e+0L
+
+y 0.E0
+y 0.E-0
+y 0.E+0
+y 0.E0f
+y 0.E0l
+y 0.E0F
+y 0.E0L
+y 0.E-0f
+y 0.E-0l
+y 0.E-0F
+y 0.E-0L
+y 0.E+0f
+y 0.E+0l
+y 0.E+0F
+y 0.E+0L
+
+y 0.f
+y 0.l
+y 0.F
+y 0.L
+
+--------------------------
+// digit-sequence . digit-sequence
+
+y 0.0
+y .0
+
+--------------------------
+// digit-sequence . 
+
+y 0.
+
+--------------------------
+// digit-sequence exp float-suffix
+
+y 0e0
+y 0e-0  
+y 0e+0
+y 0E0
+y 0E-0  
+y 0E+0
+
+y 0e0f
+y 0e-0f  
+y 0e+0f
+y 0E0f
+y 0E-0f  
+y 0E+0f
+
+y 0e0l
+y 0e-0l  
+y 0e+0l
+y 0E0l
+y 0E-0l  
+y 0E+0l
+
+y 0e0F
+y 0e-0F  
+y 0e+0F
+y 0E0F
+y 0E-0F  
+y 0E+0F
+
+y 0e0L
+y 0e-0L  
+y 0e+0L
+y 0E0L
+y 0E-0L  
+y 0E+0
+
+-------------------------
+// A few extras for clarity
+
+y 123456789.
+y .123456789
+y 123.123
+y 123.123e123
+y 123.123E123
+y 123.123e-123
+y 123.123e+123
+y 123.123E-123
+y 123.123E+123
+
+--------------------------
+// Things that shouldn't match
+
+n 0
+n 00
+n 123456789
+n -123456789
+n +123456789
+n +0
+n -0
+n 0-
+n 0+
+n .+
+n .-
+n +.
+n -.
+n e
+n E
+n -
+n +
+n l
+n L
+n f
+n F
+n l+
+n L+
+n f+
+n F+
+n l-
+n L-
+n f-
+n F-
+n +l
+n +L
+n +f
+n +F
+n -l
+n -L
+n -f
+n -F
+n 
+n 0e
+n 0E
+n e0
+n E0
