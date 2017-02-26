@@ -2,7 +2,7 @@
 // ECE 331 - Homework 6 
 // February 26, 2017
 // Description: C program that prints the geometry of an SD cad using HDIO_GETGEO
-// Sources: 
+// Sources: www.kernel.org/doc/Documentation/ioctl/hdio.txt 
 
 #include <stdio.h>
 #include <linux/hdreg.h>

@@ -11,12 +11,11 @@
     a. Makefile 
     b. Source Code 
 
-3. Disble login for RPi serial port: 
-Completed - had to follow different tutorial for RPi3 (http://spellfoundry.com/2016/05/29/configuring-gpio-serial-port-raspbian-jessie-including-pi-3/) 
+3. Disble login for RPi serial port: Completed - had to follow different tutorial for RPi3 (http://spellfoundry.com/2016/05/29/configuring-gpio-serial-port-raspbian-jessie-including-pi-3/) 
 
-4. Enable I2C on RPi: 
+4. Enable I2C on RPi: Completed
 
-5. Determine processes: 
+5. Determine processes: ps -e | sed '1d' | wc -l
 
 6. Virtual memory used by processes: 
 
