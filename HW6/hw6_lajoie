@@ -1,7 +1,7 @@
 // Author: Nicholas LaJoie
 // ECE 331 - Homework 6
 // Date: February 24, 2017
-
+--------------------------
 1. Making zombies (C code) 
     a. Source Code 
 // Author: Nicholas LaJoie 
@@ -127,5 +127,7 @@ int main(int argc, char * argv[])
 5. Determine processes: ps -e | sed '1d' | wc -l
 
 6. Virtual memory used by processes: ps augx | tee save | sed '1d' | awk '{print $5}' | perl -ne 'chomp;s/$/+/;print;' | sed -e 's/$/0\n/' | bc -l
+NOTE: To verify this expression, "tee save" produces a file "save" that contains the processes information. I brought it into excel and verified the summation of the virtual memory (it worked!)
 
 7. Find >10 MB files in /usr/share directory: find /usr/share/ -size +10M
+NOTE: Tested this by place a 206MB file in the /usr/share/ directory - the file was found!
