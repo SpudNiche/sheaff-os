@@ -15,16 +15,13 @@ int main(int argc, char * argv[])
 
     pid_t child; 
 
-    // Create child 
+    // Create child process 
     child = fork(); 
 
     // Create a Zombie 
     if (child > 0) {
-         // Parent sends a term signal to child, sleeps, exits 
+         // Parent sends a term signal to child, sleeps 
         kill(child, SIGTERM); 
-        // Show that a zombie has been created 
-        printf("Zombie Status:\n"); 
-        system("ps aux | egrep 'Z\\+'\n"); 
         sleep(10);
     } else if (child == 0) {
         // Child sleeps in endless loop

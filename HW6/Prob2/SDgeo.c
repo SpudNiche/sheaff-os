@@ -17,7 +17,7 @@ int main(int argc, char * argv[])
    int fd, result; 
 
    // Open SD card partition file 
-   fd = open("/dev/mmcblk0p2", O_RDONLY); 
+   fd = open("/dev/mmcblk0", O_RDONLY); 
    if (fd < 0) {
        perror("Error getting file descriptor to SD card.\n"); 
        return 1; 
