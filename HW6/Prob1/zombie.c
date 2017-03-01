@@ -16,10 +16,23 @@ int main(int argc, char * argv[])
 
     // Create child 
     child = fork(); 
-    if (child < 0) {
-        perror("Couldn't create child...\n");
+
+    // Create a Zombie 
+    if (child > 0) {
+         // Parent sends a term signal to child, sleeps, exits 
+        kill(child, SIGTERM); 
+        // Show that a zombie has been created 
+        printf("Zombie Status:\n"); 
+        system("ps aux | egrep 'Z\\+'\n"); 
+        sleep(10);
+    } else if (child == 0) {
+        // Child sleeps in endless loop
+        while (1) {
+            sleep(1);
+        }
+    } else {
+        perror("Failure on fork()\n");
         return 1; 
     }
-
     return 0; 
 }
