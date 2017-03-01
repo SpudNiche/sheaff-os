@@ -2,6 +2,7 @@
 // ECE 331 - Homework 6
 // February 26, 2017
 // Description: A C program that creates zombies by calling fork().
+// Sources: http://askubuntu.com/questions/111422/how-to-find-zombie-process, http://stackoverflow.com/questions/6501522/how-to-kill-a-child-process-by-the-parent-process, http://man7.org/linux/man-pages/man2/kill.2.html
 
 #include <stdio.h>
 #include <stdlib.h> 
