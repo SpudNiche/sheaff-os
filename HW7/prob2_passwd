@@ -1,0 +1,17 @@
+#!/usr/bin/perl
+# Script parses all lines in /etc/passwd file, creates hash that associates usernames with shells for all users
+# Once parsed, prints each username and shell, one per line
+
+open(IN, "/etc/passwd") or die "Cannot open \"/etc/passwd\" file.\n"; # Open file for parsing
+
+my %pairs; # Hash to store username-shell pairs
+
+while (<IN>) {
+    if (/(.*):.*:.*:.*:.*:.*:(.*)/) { # Capture username (field 1) and shell (field 7)
+        $pairs{$1} = $2; # Store pair in the hash
+    }
+}
+
+for my $x (keys %pairs) {
+    print "$x $pairs{$x}\n"; # Print each pair of username and shell
+}

@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+# Validates the first four fields of an entry in /etc/passwd
+
+my $x = qr/^[\w-]+:x:\d+:\d+/;
+
+open(IN, "/etc/passwd") or die "Cannot open \"/etc/passwd\" file.\n"; # Open file for parsing
+
+
+while (<IN>) {
+    if (/$x/) { 
+        print $_;
+    }
+}
