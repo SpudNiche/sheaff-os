@@ -34,7 +34,7 @@
     $ file next                             # Check file type 
     $ ls -l next                            # Check permissions 
     $ chmod +x next                         # Add executable permissions
-    $ ./next nicholas.r.lajoie@maine.edu *[0-9]
+    $ ./next nicholas.r.lajoie@maine.edu *[0-9]     # Run based on provided usage
 
     Result: MARYLAND
 
