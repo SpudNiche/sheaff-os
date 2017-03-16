@@ -13,18 +13,30 @@
 5. Random command line: 
     
     a) dw
-    b) 
-    c)
-    d)
-    e)
-    f)
+    b) sed -n '20,30p' /usr/local/project/from/lleh/morse
+    c) ln -s /usr/share/jon/snow \$throne
+    d) chmod -R g+rx,o+rx .
+    e) ps aux | egrep '\s+S.?.?\s+' | wc -l
+    f) aptitude search '~dAtari'
+       sudo apt-get install stella
 
 6. Mystery Hunt
 
-    >> 
-    >> 
-    >>
-    >>
+    $ cp /mnt/start_here /home/pi/test1     # Copy into empty directory 
+    $ cd /home/pi/test1                     # Navigate to directory 
+    $ file start_here                       # See what kind of file it is
+    $ ./start_here                          # Run the executable
+    $ ls                                    # See what changed 
+    $ tar -xf files                         # Extract files
+    $ ls -al                                # View extracted files
+    $ cd .\ \ _/                            # Take a look at the new directory
+    $ ls                                    # See what we've got
+    $ file next                             # Check file type 
+    $ ls -l next                            # Check permissions 
+    $ chmod +x next                         # Add executable permissions
+    $ ./next nicholas.r.lajoie@maine.edu *[0-9]
+
+    Result: MARYLAND
 
 7. Kernel Modules 
 
