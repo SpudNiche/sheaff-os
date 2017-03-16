@@ -1,7 +1,6 @@
 TARGET=thebest
 CFLAGS=-g -Wall
 OBJS=trump.o spicer.o kellyanne.o pense.o
-LIBS=-lm
 CC=gcc
 
 .PHONY: all clean
