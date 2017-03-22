@@ -111,4 +111,4 @@ all:
 clean:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
 
-    b) By the time I pass this in, I will have had it working.
+    b) Having trouble with compiling the module. Working on it. 
