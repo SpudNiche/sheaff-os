@@ -4,11 +4,71 @@
 
 1. Political Makefile
 
+TARGET=thebest
+CFLAGS=-g -Wall
+OBJS=trump.o spicer.o kellyanne.o pence.o
+CC=gcc
+
+.PHONY: all clean
+
+all: ${TARGET}
+
+${TARGET}: ${OBJS}
+	${CC} -o ${TARGET} ${OBJS} ${LIBS}
+
+clean: 
+	rm -f ${TARGET} ${OBJS}
+
 2. Parse /etc/passwd file in perl
+
+#!/usr/bin/perl
+# Author: Nicholas LaJoie
+# ECE 331 - Homework 7, Problem 2
+# Script parses all lines in /etc/passwd file, creates hash that associates usernames with shells for all users
+# Once parsed, prints each username and shell, one per line
+
+open(IN, "/etc/passwd") or die "Cannot open \"/etc/passwd\" file.\n"; # Open file for parsing
+
+my %pairs; # Hash to store username-shell pairs
+
+while (<IN>) {
+	chomp;
+	my @L = split ':';
+    $pairs{$L[0]} = $L[6]; # Store pair in the hash
+}
+
+for my $x (keys %pairs) {
+    print "$x $pairs{$x}\n"; # Print each pair of username and shell
+}
 
 3. Regex for passwd: ^[^:]+:x:\d+:\d+
 
 4. Print resident set size with getrusage() 
+
+// Author: Nicholas LaJoie
+// ECE 331 - Homework 7, Problem 4
+// File: prob4_usage.c
+// Date: March 14, 2017
+// Description: Prints the resident set size of the running program itself by calling getrusage()
+
+#include <stdio.h>
+#include <sys/time.h>
+#include <sys/resource.h>
+
+int main (int argc, char * argv[]) 
+{
+    struct rusage use; 
+
+    int result = getrusage(RUSAGE_SELF, &use); // Get usage for program itself
+
+    if (result < 0) {
+        perror("Error getting usage.\n"); // Error checking 
+        return 1; 
+    }
+    printf("Resident Set Size: %ld\n", use.ru_maxrss); // On success, print set size
+
+    return 0; 
+}
 
 5. Random command line: 
     
@@ -43,4 +103,12 @@
 
     a) Makefile 
 
-    b) (Say it worked) 
+obj-m += systimer.o
+
+all:
+	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+
+clean:
+	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+
+    b) By the time I pass this in, I will have had it working.
