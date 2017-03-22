@@ -7,6 +7,7 @@ open(IN, "/etc/passwd") or die "Cannot open \"/etc/passwd\" file.\n"; # Open fil
 my %pairs; # Hash to store username-shell pairs
 
 while (<IN>) {
+	chomp;
 	my @L = split ':';
     $pairs{$L[0]} = $L[6]; # Store pair in the hash
 }

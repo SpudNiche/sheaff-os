@@ -14,12 +14,11 @@ int main (int argc, char * argv[])
 
     int result = getrusage(RUSAGE_SELF, &use); // Get usage for program itself
 
-    if (result == 0) {
-        printf("Resident Set Size: %ld\n", use.ru_maxrss); // On success, print set size
-    } else {
+    if (result < 0) {
         perror("Error getting usage.\n"); // Error checking 
         return 1; 
     }
+    printf("Resident Set Size: %ld\n", use.ru_maxrss); // On success, print set size
 
     return 0; 
 }

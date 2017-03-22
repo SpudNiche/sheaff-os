@@ -6,7 +6,7 @@
 
 2. Parse /etc/passwd file in perl
 
-3. Regex for passwd
+3. Regex for passwd: ^[^:]+:x:\d+:\d+
 
 4. Print resident set size with getrusage() 
 
@@ -15,9 +15,10 @@
     a) dw
     b) sed -n '20,30p' /usr/local/project/from/lleh/morse
     c) ln -s /usr/share/jon/snow \$throne
-    d) chmod -R g+rx,o+rx .
-    e) ps aux | egrep '\s+S.?.?\s+' | wc -l
-    f) aptitude search '~dAtari'
+    d) XXXXWrongXXXXchmod -R g+rx,o+rx .
+    e) XXXXVerify ThisXXXXps aux | egrep '\s+S.?.?\s+' | wc -l
+    f) sudo apt-get update
+       aptitude search '~dAtari'
        sudo apt-get install stella
 
 6. Mystery Hunt
