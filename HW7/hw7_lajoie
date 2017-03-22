@@ -15,7 +15,7 @@
     a) dw
     b) sed -n '20,30p' /usr/local/project/from/lleh/morse
     c) ln -s /usr/share/jon/snow \$throne
-    d) XXXXWrongXXXXchmod -R g+rx,o+rx .
+    d) chmod -R go=u,go-w,go+r .
     e) XXXXVerify ThisXXXXps aux | egrep '\s+S.?.?\s+' | wc -l
     f) sudo apt-get update
        aptitude search '~dAtari'
