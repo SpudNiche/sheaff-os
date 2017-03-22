@@ -1,6 +1,6 @@
 TARGET=thebest
 CFLAGS=-g -Wall
-OBJS=trump.o spicer.o kellyanne.o pense.o
+OBJS=trump.o spicer.o kellyanne.o pence.o
 LIBS=-lm
 CC=gcc
 
