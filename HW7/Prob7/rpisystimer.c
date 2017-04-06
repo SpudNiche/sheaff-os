@@ -13,7 +13,7 @@
 static int __init rpisystimer_minit(void)
 {
     printk(KERN_INFO "%s\n", SYSTIMER_MOD_DESCR);
-    printl(KERN_INFO "By: %s\n", SYSTIMER_MOD_AUTH); 
+    printk(KERN_INFO "By: %s\n", SYSTIMER_MOD_AUTH); 
     return 0; 
 }
 
@@ -28,7 +28,7 @@ module_init(rpisystimer_minit);
 module_exit(rpisystimer_mcleanup);
 
 // Macros to set module attributes when using modinfo
-MODULE_LINCENSE("GPL");
+MODULE_LICENSE("GPL");
 MODULE_AUTHOR(SYSTIMER_MOD_AUTH); 
 MODULE_DESCRIPTION(SYSTIMER_MOD_DESCR);
 MODULE_SUPPORTED_DEVICE(SYSTIMER_MOD_SDEV); 
