@@ -1,0 +1,32 @@
+// Author: Nicholas LaJoie
+// ECE 331 - Homework 10 
+// Date: April 8, 2017
+
+1. PHP 
+    a) Source Code
+    b) URL: 
+
+2. Python Script - Parse 
+
+#!/usr/bin/python3
+import csv
+
+d = csv.reader(open('predict60.csv'), delimiter=' ');
+for row in d:
+    print(row[0]+' '+row[1]);
+
+*********************
+wc output: 6  14  129
+*********************
+
+3. Command: python parse.py > time_altitude.csv
+
+4. Python Script - Plot
+
+import matplotlib.pyplot as plt
+
+plt.plotfile('time_altitude.csv', delimiter = ' ', cols = (0, 1), names = ('Time, Seconds', 'Altitude, Feet'))
+
+plt.title('ECE 331, HW10, Problem 4')
+
+plt.show()
