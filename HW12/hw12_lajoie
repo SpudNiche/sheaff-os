@@ -1,19 +1,96 @@
 // Author: Nicholas LaJoie
 // ECE 331 - Homework 12
+// Date: April 27, 2017 
 
-1. Router Elessar and Host Legalos - Routing Table 
+1. Router Elessar and Host Legalos - Routing Tables
+
+Elessar Table: 
+
+Destination     | Gateway         | GenMask         | Iface
+-----------------------------------------------------------
+0.0.0.0         | 76.99.33.1      | 0.0.0.0         | ETH1
+18.4.0.0        | 0.0.0.0         | 255.252.0.0     | ETH0 
+76.99.0.0       | 0.0.0.0         | 255.255.192.0   | ETH1
+141.33.33.0     | 0.0.0.0         | 255.255.255.224 | ETH2
+
+Legalos Table: 
+
+Destination     | Gateway         | GenMask         | Iface
+-----------------------------------------------------------
+0.0.0.0         | 141.33.33.40    | 0.0.0.0         | ETH0 
+141.33.33.0     | 0.0.0.0         | 255.255.255.224 | ETH0
 
 2. Frodo -> Legolas 
 
+Name        | MAC Source        | MAC Destination   | IP Source     | IP Destination 
+------------------------------------------------------------------------------------
+Frodo       | 00:00:00:00:00:11 | 55:00:00:00:00:00 | 18.4.8.9      | 141.33.33.6
+Legolas     | 66:00:00:00:00:00 | 00:00:00:00:00:22 | 18.4.8.9      | 141.33.33.6
+
 3. Legolas -> Gandalf 
 
-4. NFS Server 
+Name        | MAC Source        | MAC Destination   | IP Source     | IP Destination
+------------------------------------------------------------------------------------
+Legolas     | 00:00:00:00:00:22 | 66:00:00:00:00:00 | 141.33.33.6   | 76.99.33.1
+Gandalf     | 77:00:00:00:00:00 | FF:00:00:00:00:00 | 141.33.33.6   | 76.99.33.1
 
-    a. Teammate: 
+4. NFS Server 
+    Source: https://www.htpcguides.com/configure-nfs-server-and-nfs-client-raspberry-pi/
+
+    a. Teammate: Jack Britton 
+
     b. NFS server setup commands: 
-    c. Exported directory:
+        sudo apt-get install nfs-common nfs-server -y
+        sudo mkdir /mnt/nfsserver
+        sudo chmod -R 777 /mnt/nfsserver
+        sudo exportfs 
+        sudo update-rc.d rpcbind enable
+        sudo service rpcbind restart
+        sudo service nfs-kernel-server restart
+
+    c. Exported directory: /mnt/nfsserver
+
     d. Filenames/Configurations for NFS server 
+        sudo vi /etc/exports
+            # My own
+            /mnt/nfsserver 141.114.203.218 *(rw,sync)
+            # Jack
+            /mnt/nfs 141.114.200.79 *(rw,sync)
+        sudo exportfs
+        sudo vi /etc/fstab
+            141.114.200.79:/srv/nfs         /mnt/nfs   nfs    rw      0       0
+
     e. Commands to mount exported filesystem
-    f. Filenames/Configuartions for NFS client
+        sudo mount 141.114.203.218:/mnt/nfsserver /mnt/nfs
+
+    f. Filenames/Configurations for NFS client
+        sudo apt-get install nfs-common -y
+        sudo mkdir -p /mnt/nfs
+        sudo chown -R pi:pi /mnt/nfs
 
 5. Python plot script 
+
+#!/usr/bin/python3
+
+# Author: Nicholas LaJoie
+# Source: https://matplotlib.org/users/pyplot_tutorial.html
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Plot sin(x)/x for -10 to 10, x = angle (radians), y = voltage
+
+def f(x):
+    return np.sin(x)/x
+
+x1 = np.arange(-10.0, 10.0, 0.1)
+
+# Plot with proper labels
+
+plt.figure(1)
+plt.grid()
+plt.title('ECE 331, HW12, Problem 5')
+plt.xlabel('Angle, Radians')
+plt.ylabel('Voltage, V')
+plt.plot(x1, f(x1))
+plt.show()
