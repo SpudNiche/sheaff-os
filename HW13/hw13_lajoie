@@ -1,0 +1,66 @@
+// Author: Nicholas LaJoie
+// ECE 331 - HW 13
+// Date: May 8, 2017
+
+1. PHP Table
+
+<?php
+function table($w, $h)
+{
+    print "<TABLE BORDER=1\n>";
+    for ($i = 0; $i < ($w * $h); $i++) { 
+        if ($i % $w == 0) { 
+            print "<TR>";
+        } else if ($i % $w == ($w - 1)) {
+            print "</TR>";
+        } else {
+            print "<TD>$i";
+        }
+    }
+    print "</TABLE>\n";
+}
+?>
+
+2. Addresses & Netmasks
+
+The following addresses were calculated using the following techniques: 
+--> NA = IP & NM
+--> BA = IP | (~NM) 
+--> The NM was determined by lining up the binary representations of the NA & BA
+and determining the point when they are no longer identical (for the second one,
+that point was the last 11 binary digits). 32 - 11 = 21, which is the NM, /21. 
+--> Using this NM, an assignable IP was selected based on the addresses available. 
+
+| Network (DDN) | Assignable IP (DDN) | Netmask (CIDR) | Broadcast (DDN) |
+--------------------------------------------------------------------------
+40.240.0.0      | 40.241.231.123      | /13            | 40.247.255.255
+--------------------------------------------------------------------------
+2.3.88.0        | 2.3.89.1            | /21            | 2.3.95.255
+
+3. Python Morse Tester
+
+#!/usr/bin/python
+
+m = open("/dev/morse")              # Morse Device
+f = open("/usr/share/dict/words")   # Dictionary file
+
+for line in f:
+    print line          # Print to stdout
+    m.write(line)       # Write to morse device
+
+# Clean up
+m.close()
+f.close()
+
+4. Run two instances of above script: ./pmorse.py & ./pmorse.py
+
+5. Q & A 
+    a) The 'addrlen' specifies the length of a socket address in order to match the format of the address being passed. It is possible many protocols may exist, which means the length may vary. (Source: socket(2))  
+    b) The processor of a single core system can often kick processes 'off' (CHANGE) the processor at any given point. If multiple processes require a piece of data, context switches can cause unexpected behavior, which implies that a lock is required.
+    c) ??? (why no printf)
+    d) If proper error checking is not done in the kernel space, it is very easy to accidentally have a buffer overflow that could cause serious security issues, and data may be overwritten unintentionally. This could corrupt the kernel/system. 
+
+6. Kernel Questions
+    a) No
+    b) It won't work because the lock is initialized every time the write function is called. It creates a lock, then immediately checks if it is locked. For every call made to this function, there is a race condition to modify (initialize) the 'lock' variable. This will cause concurrency issues, as it will be difficult to tell what state the lock is in if it's constantly being initialized. Additionally, the creation of many mutex locks could fill up memory very quickly and crash the program. 
+    c) The initialize code for the lock should be moved outside of the function. A single global mutex struct can then be checked by the code following the 'init_mutex' above, and will behave appropriately. 
