@@ -1,0 +1,144 @@
+// Author: Nicholas LaJoie
+// File: Test 2 Notes
+
+6 Steps to Security
+-------------------
+1. Filter -> Firewall (vfw/iptables, TCP wrappers, services)
+2. Stop Services -> Systemctl (anything unencrypted ... TFTP/Telnet, rsh,
+    finger) 
+3. Patch -> apt-get update (apply updates to test machines first...) 
+4. Backups -> Amanda, LRK (Linux Root Kit), validate OFTEN
+    - cp to a DIFFERENT physical device 
+    - tar (archive/compress) 
+    - Amanda is a tape robot
+5. Passwords -> Length is better (nothing crazy) 
+6. Monitoring -> /var/log
+    - Look around at last, user, firewall, etc. in /var/log
+    - logwatch, tripwire, honeypot
+
+Some hot security knowledge 
+ - Break-ins caused by 
+    -- open doors, default pw, bad pw
+    -- buggy software (not checking return vals, buffer overflow (can
+        jump to next point in code that hacker wants to run) 
+    -- If you're root you can do all except kill zombies! 
+    -- intential backdoors... (China) :/ 
+ - Just need physical access man
+    -- Sensitive data 
+    -- Liability
+    -- Physical Infrastructure 
+ - Most secure OS depends on YOU 
+
+IMPORTANT DIRECTORIES/FILES
+    /etc/host.(allow|deny) --> white/blacklists  
+    dpkg -S /usr/sbin/crom (see the process) 
+    dpkg getinfo
+    route 
+    traceroute 
+
+Kernel
+------
+1. It's always a race condition
+
+Python
+------
+1. See documentation 
+
+PHP
+---
+1. HW10 & documentation
+
+TCP/IP vs. UDP
+--------------
+ - TCP is reliable, has good delivery, connection-oriented, in order
+ - UDP is connectionless, unreliable, out of order 
+
+ - TCP has more overhead
+ - UDP is used for streaming
+
+Network
+-------
+OSI Model - Layers
+
+7. Application (Ports on a network)
+6. Presentation
+5. Session: Recover ordering for UDP 
+4. Transport: TCP/UDP
+3. Network: IP (32-bit number)
+    DDN (??): 192.168.1.197 (0-255 for each) 
+2. Datalink: Ethernet -> "Manchester Encoding" (MAC addresses) 
+1. Physical Layer: Ethernet, Coaxial, Fiber, Wireless, UTP, Pigeon
+
+Determining Network Stuff
+    - Netmask is a bit mask that divides IPs into a network and host
+        -- 1's are the network
+        -- 0's are the host
+        -- Still 32 bits 
+    - For a network, the host is set to 0
+        -- Ex) 130.111.0.0 is the UMaine Network (all addresses) 
+        -- Mask: 255.255.0.0
+        -- Largest address is 130.111.255.255 - BROADCAST (sends info to
+            everyone on that network) 
+        -- A MAC address of all 1's (FF:...:FF) is a broadcast to all
+            MAC addresses 
+        -- Number of MAC addresses: 2^48 (too big for a single look-up)
+    - Ports 
+        -- An IP points to a host (i.e. a computer) and the port ids 
+            represent specific processes (Spotify, Netflix, etc)
+        -- Usually 16-bits 
+        -- Common Ports
+            80: Web
+            22: ssh
+            443 https
+            25: sendmail
+            21: ftp
+            STANDARDS: ICANN 
+    - Masking and such
+        -- NA = IP&NM
+        -- BA = IP|(~NM)
+    - CIDR is the new representation that uses /16 /whatever
+    - Subnets
+        -- Total addresses: 2^16
+            Assignable:     2^16 - 2 (can't assign NA & BA) 
+        -- Ex) 
+            130.111.218.0/23 <-- # of ones of NM 
+            255.255.254.0 (NM)
+            130.111.219.255 (BA) 
+            There are 32-23 = 9 slots left so
+                2^9 = 512 total addresses 
+                2^9 -2 = 510 total assignable addresses
+        -- Each subset needs its' own BA and NA
+    - Misc: 
+        0.0.0.0/8 is reserved 
+        127.0.0.0/8 localhost (NOT on network)
+    - IPC --> Interprocess Communication
+        |IP SA (server)|SP (port)|IP DA (Web Client)|DP (random - 35k-65k)
+
+Network Stuff in C
+------------------
+socket()
+gethostbyname()
+setup socket struct
+connect() (returns socket fd) 
+write(sfd, r(equest)string, strlen(rstring))
+read response
+write(fileno(stdout), response, len)
+close socket
+
+ - Can be done with any hostname (port 80) 
+
+Useful Commands
+----------------
+ps aux 
+systemctl
+    sudo systemctl start <service> 
+                   stop             (happens during runtime)
+                   disable          (need to boot to make changes)
+                   mask             (CAN'T start this up) 
+
+Stuff about Passwords
+---------------------
+/etc/passwd --> 7 fields (man 5 passwd)
+/etc/shadow
+USERADD, USERDEL, USERMOD, PASSWD
+crypt is a one-way hash (old school - 8 chars max became 13 chars)
