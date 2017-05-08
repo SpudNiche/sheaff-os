@@ -56,11 +56,12 @@ f.close()
 
 5. Q & A 
     a) The 'addrlen' specifies the length of a socket address in order to match the format of the address being passed. It is possible many protocols may exist, which means the length may vary. (Source: socket(2))  
-    b) The processor of a single core system can often kick processes 'off' (CHANGE) the processor at any given point. If multiple processes require a piece of data, context switches can cause unexpected behavior, which implies that a lock is required.
-    c) ??? (why no printf)
-    d) If proper error checking is not done in the kernel space, it is very easy to accidentally have a buffer overflow that could cause serious security issues, and data may be overwritten unintentionally. This could corrupt the kernel/system. 
+    b) The processor of a single core system can often suspend a process to run another process at any given point (known as a 'context switch'). This is a key feature of a preemptive kernel (which the Linux kernel is). If multiple processes require a piece of data, context switches can cause unexpected behavior, which implies that a lock is required. A lock will ensure there are no concurrency issues due to context switching on a processor. 
+    c) printf() is a userspace program that is part of the C library. There is no stdout at the kernel level (printk() prints to logs), so there is no use for printf() in the kernel! 
+    d) If proper error checking is not done in the kernel space, it is very easy to accidentally have a buffer overflow that could cause serious security issues, and data may be overwritten unintentionally. This could corrupt the kernel/system. Proper error checking can prevent a "kernel panic", and writing code like this is just a good practice in general. Additionally, it will prevent security flaws such as an unintentional "backdoor" on the machine or network. 
 
 6. Kernel Questions
     a) No
-    b) It won't work because the lock is initialized every time the write function is called. It creates a lock, then immediately checks if it is locked. For every call made to this function, there is a race condition to modify (initialize) the 'lock' variable. This will cause concurrency issues, as it will be difficult to tell what state the lock is in if it's constantly being initialized. Additionally, the creation of many mutex locks could fill up memory very quickly and crash the program. 
-    c) The initialize code for the lock should be moved outside of the function. A single global mutex struct can then be checked by the code following the 'init_mutex' above, and will behave appropriately. 
+    b) It won't work because the lock is initialized every time the write function is called. It creates a lock, then immediately checks if it is locked. For every call made to this function, there is a race condition to modify (initialize) the 'lock' variable. This will cause concurrency issues, as it will be difficult to tell what state the lock is in if it's constantly being initialized. 
+    Additionally, there is a memory leak! 'dat_buf' is being allocated but never freed on during any of the return code when a failure occurs. 
+    c) The initialize code for the lock (definition & initialization) should be moved outside of the function and declared as a global variable. A single global mutex struct can then be checked by the code following the 'init_mutex' above, and will behave appropriately. Also, I would add a line 'kfree(dat_buf);' to prevent the memory leak. 
